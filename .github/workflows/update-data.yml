@@ -1,0 +1,54 @@
+name: Update Gadget Data
+
+on:
+  schedule:
+    # 毎日 6時, 12時, 18時 (JST) に実行
+    - cron: '0 21 * * *'  # 6:00 JST
+    - cron: '0 3 * * *'   # 12:00 JST
+    - cron: '0 9 * * *'   # 18:00 JST
+  workflow_dispatch:  # 手動実行も可能
+
+env:
+  JAVA_VERSION: '21'
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build Backend
+        working-directory: ./backend
+        run: mvn clean package -DskipTests
+
+      - name: Run Data Collection
+        working-directory: ./backend
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          java -jar target/gadget-backend-1.0.0.jar "$GEMINI_API_KEY" "../frontend/public/data"
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          git diff --exit-code frontend/public/data/ || echo "changes=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and Push
+        if: steps.git-check.outputs.changes == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add frontend/public/data/
+          git commit -m "chore: update gadget data [skip ci]"
+          git push
