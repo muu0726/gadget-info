@@ -16,6 +16,7 @@ const categories: { value: CategoryFilter; label: string; emoji: string }[] = [
     { value: 'Wearable', label: 'Wearable', emoji: '⌚' },
     { value: 'Audio', label: 'Audio', emoji: '🎧' },
     { value: 'Smart Home', label: 'Smart Home', emoji: '🏠' },
+    { value: 'Gaming', label: 'Gaming', emoji: '🎮' },
 ];
 
 export function CategoryTabs({ value, onChange }: CategoryTabsProps) {

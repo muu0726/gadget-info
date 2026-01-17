@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { Heart } from 'lucide-react';
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
@@ -20,6 +21,7 @@ export function GadgetCard({
     size = 'normal',
 }: GadgetCardProps) {
     const isLarge = size === 'large';
+    const [imgSrc, setImgSrc] = useState(gadget.imageUrl);
 
     return (
         <Card
@@ -28,11 +30,12 @@ export function GadgetCard({
         >
             <div className={`relative overflow-hidden ${isLarge ? 'h-64' : 'h-40'}`}>
                 <Image
-                    src={gadget.imageUrl}
+                    src={imgSrc}
                     alt={gadget.title}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     sizes={isLarge ? '(max-width: 768px) 100vw, 50vw' : '(max-width: 768px) 100vw, 33vw'}
+                    onError={() => setImgSrc(`https://placehold.co/600x400/1a1a1a/666666?text=${gadget.category}`)}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 

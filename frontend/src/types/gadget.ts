@@ -1,4 +1,4 @@
-export type GadgetCategory = 'Mobile' | 'PC' | 'Wearable' | 'Audio' | 'Smart Home';
+export type GadgetCategory = 'Mobile' | 'PC' | 'Wearable' | 'Audio' | 'Smart Home' | 'Gaming';
 
 export interface Gadget {
   id: string;
