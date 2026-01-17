@@ -126,6 +126,12 @@ public class Main {
             return "Mobile";
         String lower = title.toLowerCase();
 
+        if (lower.contains("playstation") || lower.contains("ps5") || lower.contains("nintendo")
+                || lower.contains("switch")
+                || lower.contains("steam deck") || lower.contains("xbox") || lower.contains("geforce")
+                || lower.contains("rtx") || lower.contains("gaming") || lower.contains("ゲーミング")) {
+            return "Gaming";
+        }
         if (lower.contains("iphone") || lower.contains("android") || lower.contains("スマホ") || lower.contains("galaxy")
                 || lower.contains("pixel")) {
             return "Mobile";

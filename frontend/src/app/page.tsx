@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Heart, Filter, Grid3x3 } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
@@ -12,9 +12,18 @@ import { Toggle } from '@/components/ui/toggle';
 import { useFavorites } from '@/hooks/useFavorites';
 import { useFilters } from '@/hooks/useFilters';
 import { mockData } from '@/data/mock-data';
+import { loadGadgetData } from '@/data/data-loader';
 
 export default function Home() {
   const { favorites, toggleFavorite, isFavorite, isLoaded } = useFavorites();
+  const [gadgets, setGadgets] = useState(mockData.gadgets);
+
+  useEffect(() => {
+    loadGadgetData().then((data) => {
+      setGadgets(data.gadgets);
+    });
+  }, []);
+
   const {
     category,
     setCategory,
@@ -23,7 +32,7 @@ export default function Home() {
     showFavoritesOnly,
     setShowFavoritesOnly,
     filterByFavorites,
-  } = useFilters({ gadgets: mockData.gadgets });
+  } = useFilters({ gadgets });
 
   const [showFilters, setShowFilters] = useState(false);
 
