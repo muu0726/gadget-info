@@ -90,7 +90,9 @@ export function GadgetCard({
                     <div className="flex items-center justify-between pt-2">
                         <span className="text-xs text-zinc-500">{gadget.sourceName}</span>
                         <a
-                            href={gadget.sourceUrl}
+                            href={gadget.sourceUrl.includes('example.com')
+                                ? `https://www.google.com/search?q=${encodeURIComponent(`${gadget.title} ${gadget.sourceName}`)}`
+                                : gadget.sourceUrl}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-xs text-zinc-400 hover:text-white transition-colors"

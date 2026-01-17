@@ -1,7 +1,7 @@
 'use client';
 
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import type { GadgetCategory } from '@/types/gadget';
+
 import type { CategoryFilter } from '@/hooks/useFilters';
 
 interface CategoryTabsProps {

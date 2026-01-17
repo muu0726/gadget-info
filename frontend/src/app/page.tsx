@@ -10,7 +10,7 @@ import { PriceSlider } from '@/components/filters/PriceSlider';
 import { Button } from '@/components/ui/button';
 import { Toggle } from '@/components/ui/toggle';
 import { useFavorites } from '@/hooks/useFavorites';
-import { useFilters, type CategoryFilter } from '@/hooks/useFilters';
+import { useFilters } from '@/hooks/useFilters';
 import { mockData } from '@/data/mock-data';
 
 export default function Home() {
@@ -22,7 +22,6 @@ export default function Home() {
     setPriceRange,
     showFavoritesOnly,
     setShowFavoritesOnly,
-    filteredGadgets,
     filterByFavorites,
   } = useFilters({ gadgets: mockData.gadgets });
 

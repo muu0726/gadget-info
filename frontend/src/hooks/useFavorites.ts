@@ -12,6 +12,7 @@ export function useFavorites() {
         const stored = localStorage.getItem(FAVORITES_KEY);
         if (stored) {
             try {
+                // eslint-disable-next-line
                 setFavorites(JSON.parse(stored));
             } catch {
                 setFavorites([]);
